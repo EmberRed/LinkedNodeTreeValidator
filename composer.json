@@ -1,0 +1,21 @@
+{
+  "autoload": {
+    "psr-4": {
+      "TreeValidator\\": "src/",
+      "Tests\\": "tests/"
+    }
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "^10.3",
+    "phpstan/phpstan": "^1.10",
+    "symplify/coding-standard": "^12.0",
+    "symplify/easy-coding-standard": "^12.0",
+    "slevomat/coding-standard": "~8.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": false
+    }
+  }
+}

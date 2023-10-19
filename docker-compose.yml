@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  php:
+    image: dev/php
+    build:
+      context: .
+      dockerfile: docker/dev/php/Dockerfile
+      args:
+        PUID: ${PUID}
+        PGID: ${PGID}
+    volumes:
+      - .:/app
+    user: www-data
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
