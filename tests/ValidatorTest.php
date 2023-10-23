@@ -73,6 +73,15 @@ class ValidatorTest extends TestCase
                 ],
                 new InvalidTreeStructureException()
             ],
+            'not unique ids' => [
+                [
+                    new Node(1, null),
+                    new Node(2, 1),
+                    new Node(3, 2),
+                    new Node(2, 3),
+                ],
+                new InvalidTreeStructureException()
+            ],
         ];
     }
 

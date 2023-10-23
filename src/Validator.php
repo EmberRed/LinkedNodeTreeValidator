@@ -14,10 +14,15 @@ final class Validator
     public static function validate(array $nodes): bool
     {
         $nodeMap = [];
+        $seenIds = [];
 
         /** @var Node $node */
         foreach ($nodes as $node) {
+            if (in_array($node->getId(), $seenIds)) {
+                throw new InvalidTreeStructureException();
+            }
             $nodeMap[$node->getId()] = $node;
+            $seenIds[] = $node->getId();
         }
 
         // Check that there is exactly one root node (parent is null)
