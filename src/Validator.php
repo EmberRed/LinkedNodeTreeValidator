@@ -54,6 +54,11 @@ final class Validator
             return true;
         }
 
+        // Check for self-referencing nodes
+        if ($node->getParent() === $node->getId()) {
+            return false;
+        }
+
         // Check if the parent node exists
         if (!isset($nodeMap[$node->getParent()])) {
             return false;

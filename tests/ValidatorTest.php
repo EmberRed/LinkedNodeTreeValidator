@@ -64,7 +64,15 @@ class ValidatorTest extends TestCase
                     new Node(5, 6),
                 ],
                 new InvalidTreeStructureException()
-            ]
+            ],
+            'self reference in tree' => [
+                [
+                    new Node(1, null),
+                    new Node(2, 1),
+                    new Node(3, 3),
+                ],
+                new InvalidTreeStructureException()
+            ],
         ];
     }
 
