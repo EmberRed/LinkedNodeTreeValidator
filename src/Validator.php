@@ -39,7 +39,7 @@ final class Validator
 
         // Recursively validate the tree
         foreach ($nodes as $node) {
-            if (!self::validateSubtree($node, $nodeMap)) {
+            if (!self::validateSubtree($node, $nodeMap, [])) {
                 throw new InvalidTreeStructureException();
             }
         }
@@ -50,19 +50,23 @@ final class Validator
     /**
      * @param Node $node
      * @param array<int, Node> $nodeMap
+     * @param array<int> $visitedNodes
      * @return bool
      */
-    private static function validateSubTree(Node $node, array $nodeMap): bool
+    private static function validateSubTree(Node $node, array $nodeMap, array $visitedNodes): bool
     {
         // Check it's the root node
         if ($node->getParent() === null) {
             return true;
         }
 
-        // Check for self-referencing nodes
-        if ($node->getParent() === $node->getId()) {
+        // Check if the node has been visited before, indicating a loop
+        if (in_array($node->getId(), $visitedNodes)) {
             return false;
         }
+
+        // Add the node to the list of visited nodes
+        $visitedNodes[] = $node->getId();
 
         // Check if the parent node exists
         if (!isset($nodeMap[$node->getParent()])) {
@@ -70,7 +74,7 @@ final class Validator
         }
 
         // Recursively validate the parent node
-        return self::validateSubtree($nodeMap[$node->getParent()], $nodeMap);
+        return self::validateSubtree($nodeMap[$node->getParent()], $nodeMap, $visitedNodes);
     }
 
 }

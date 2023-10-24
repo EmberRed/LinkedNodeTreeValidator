@@ -82,6 +82,16 @@ class ValidatorTest extends TestCase
                 ],
                 new InvalidTreeStructureException()
             ],
+            'loop in tree' => [
+                [
+                    new Node(1, null),
+                    new Node(2, 1),
+                    new Node(3, 5),
+                    new Node(4, 3),
+                    new Node(5, 4),
+                ],
+                new InvalidTreeStructureException()
+            ],
         ];
     }
 
